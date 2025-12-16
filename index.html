@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Text Effects Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+body{
+  margin:0;
+  background:linear-gradient(135deg,#ecfeff,#fef3c7);
+  min-height:100vh;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 20px;
+  background:linear-gradient(90deg,#e0e7ff,#fafafa);
+  border-bottom:3px solid #6366f1;
+  font-size:22px;
+  font-weight:bold;
+  color:#1e3a8a;
+}
+
+header img{
+  height:42px;
+  width:auto;
+}
+
+.app{
+  display:flex;
+  height:calc(100vh - 120px);
+}
+
+.controls{
+  width:340px;
+  padding:16px;
+  background:linear-gradient(180deg,#f0f9ff,#e0e7ff);
+  border-right:2px solid #c7d2fe;
+}
+
+.controls h2{
+  margin:10px 0;
+  color:#1e40af;
+}
+
+.group{
+  margin-bottom:16px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:6px;
+  color:#312e81;
+}
+
+select,button{
+  width:100%;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #94a3b8;
+  margin-bottom:8px;
+  font-size:14px;
+}
+
+button{
+  background:#4f46e5;
+  color:white;
+  cursor:pointer;
+}
+
+.demo{
+  flex:1;
+  padding:20px;
+  background:linear-gradient(135deg,#e0f2fe,#fef9c3);
+}
+
+.box{
+  width:260px;
+  height:120px;
+  border:3px dashed #6366f1;
+  border-radius:10px;
+  padding:10px;
+  background:#ffffff;
+  overflow:hidden;
+}
+
+.text{
+  font-size:18px;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+.code{
+  background:#0f172a;
+  color:#e5e7eb;
+  padding:10px;
+  border-radius:8px;
+  font-family:Consolas,monospace;
+  margin:12px 0;
+}
+
+.desc{
+  background:linear-gradient(135deg,#ede9fe,#fce7f3);
+  border-left:5px solid #8b5cf6;
+  padding:10px;
+  border-radius:8px;
+  color:#4c1d95;
+}
+
+footer{
+  height:50px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  background:linear-gradient(90deg,#0f172a,#1e3a8a);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" alt="Logo">
+  CSS Text Effects Interactive Demo
+</header>
+
+<div class="app">
+
+<div class="controls">
+<h2>Text Effects</h2>
+
+<div class="group">
+<label>text-overflow</label>
+<select id="overflowSel" onchange="textOverflow(this.value)">
+<option disabled selected>Choose</option>
+<option value="ellipsis">ellipsis</option>
+<option value="clip">clip</option>
+</select>
+</div>
+
+<div class="group">
+<label>word-wrap</label>
+<select id="wrapSel" onchange="wordWrap(this.value)">
+<option disabled selected>Choose</option>
+<option value="break-word">break-word</option>
+</select>
+</div>
+
+<div class="group">
+<label>word-break</label>
+<select id="breakSel" onchange="wordBreaks(this.value)">
+<option disabled selected>Choose</option>
+<option value="break-all">break-all</option>
+<option value="keep-all">keep-all</option>
+</select>
+</div>
+
+<div class="group">
+<label>writing-mode</label>
+<select id="writeSel" onchange="writingMode(this.value)">
+<option disabled selected>Choose</option>
+<option value="horizontal-tb">horizontal-tb</option>
+<option value="vertical-rl">vertical-rl</option>
+<option value="vertical-lr">vertical-lr</option>
+</select>
+</div>
+
+<button onclick="resetAll()">Reset</button>
+</div>
+
+<div class="demo">
+<h2>Live Preview</h2>
+
+<div class="box">
+<div id="text" class="text">
+Saveetha Engineering College A Bright Future Ahead
+</div>
+</div>
+
+<h2>Minimal CSS Used</h2>
+<div id="code" class="code">Select an option</div>
+<div id="desc" class="desc">Description will appear here</div>
+</div>
+
+</div>
+
+<footer>© 2025 Designed & Developed by Dr. R. Selvakumar</footer>
+
+<script>
+const t=document.getElementById("text");
+const code=document.getElementById("code");
+const desc=document.getElementById("desc");
+
+function base(){
+  t.style.whiteSpace="normal";
+  t.style.overflow="visible";
+  t.style.textOverflow="clip";
+  t.style.wordWrap="normal";
+  t.style.wordBreak="normal";
+  t.style.writingMode="horizontal-tb";
+}
+
+function textOverflow(v){
+  base();
+  t.style.whiteSpace="nowrap";
+  t.style.overflow="hidden";
+  t.style.textOverflow=v;
+  code.innerText=`text-overflow: ${v};`;
+  desc.innerText="Controls how text is displayed when it overflows a single line.";
+}
+
+function wordWrap(v){
+  base();
+  t.style.wordWrap=v;
+  code.innerText=`word-wrap: ${v};`;
+  desc.innerText="Allows long words to wrap onto the next line.";
+}
+
+function wordBreaks(v){
+  base();
+  t.style.wordBreak=v;
+  code.innerText=`word-break: ${v};`;
+  desc.innerText="Defines how words break at the end of a line.";
+}
+
+function writingMode(v){
+  base();
+  t.style.writingMode=v;
+  code.innerText=`writing-mode: ${v};`;
+  desc.innerText="Changes the direction in which text flows.";
+}
+
+function resetAll(){
+  t.style.cssText="";
+  t.style.whiteSpace="nowrap";
+  t.style.overflow="hidden";
+
+  document.getElementById("overflowSel").selectedIndex=0;
+  document.getElementById("wrapSel").selectedIndex=0;
+  document.getElementById("breakSel").selectedIndex=0;
+  document.getElementById("writeSel").selectedIndex=0;
+
+  code.innerText="Select an option";
+  desc.innerText="Description will appear here";
+}
+</script>
+
+</body>
+</html>
